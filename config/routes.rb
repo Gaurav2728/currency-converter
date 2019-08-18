@@ -4,4 +4,8 @@ Rails.application.routes.draw do
 
   root to: 'welcome#index'
   get 'welcome/index'
+  get 'welcome/historical_rates'
+  get 'welcome/latest_rates'
+  post 'welcome/calculate'
+  get 'welcome/user_index'
 end

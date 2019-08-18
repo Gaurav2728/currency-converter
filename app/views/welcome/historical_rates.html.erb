@@ -1,0 +1,36 @@
+<h4 class="p-5 bg-white text-center">Last 5 Days Currency Exchange Rates</h4>
+
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <table class="table table-hover table-striped mb-0 table-wrapper-scroll-y my-custom-scrollbar">
+        <tbody>
+          <tr>
+            <th>Currency</th>
+          </tr>
+          <% @data.first["rates"].keys.each do |sym| %>
+            <tr>
+              <td><%= sym %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <% @data.each do |date| %>
+    <div class="col">
+      <table class="table table-hover table-striped mb-0 table-wrapper-scroll-y my-custom-scrollbar">
+        <tbody>
+          <tr>
+            <th><%= date["date"] %></th>
+          </tr>
+          <% date["rates"].each do |k,v| %>
+          <tr>
+            <td><%= v %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <% end %>
+  </div>
+</div>

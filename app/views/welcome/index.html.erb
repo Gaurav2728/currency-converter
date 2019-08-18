@@ -1,6 +1,59 @@
-<h1>Welcome#home</h1>
-<p>Find me in app/views/welcome/home.html.erb</p>
+<h3>
+  Welcome - <span class="text-warning"><%= current_user.name %></span>
+  <%- if signed_in? %>
+    <%= link_to "Log Out", destroy_user_session_path, method: :delete, class: "float-right" %></span>
+  <% end %>
+</h3>
 
-<%- if signed_in? %>
-  <%= link_to "Log Out", destroy_user_session_path, method: :delete %><br />
-<% end %>
+<div class="row my-sm-1">
+  <div class="col-lg-4">
+    <br/><br/><p class="text-info">Latest Currency Exchange Rates</p>
+    <% if @data["success"].eql?(true) %>
+      <table class="table table-hover table-responsive table-wrapper-scroll-y my-custom-scrollbar">
+        <tbody>
+          <tr>
+            <th>Currency</th>
+            <th>Amount</th>
+          </tr>
+        <% @data["rates"].each do |k,v| %>
+          <tr>
+            <td><%= k %></td>
+            <td><%= v %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <table class="table table-hover table-responsive ">
+        <tbody>
+          <tr>
+            <th>Message</th>
+          </tr>
+          <tr>
+            <%= @data["error"]["type"] %>
+          </tr>
+        </tbody>
+      </table>
+    <% end %>
+  </div>
+
+  <div class="col-lg-8 shadow-lg p-5 bg-white text-center">
+    <p class="text-danger">Exchange</p>
+    <%= form_tag(welcome_calculate_path, method: :post, remote: true, class: "form-inline") do %>
+      <div class="form-group mb-10">
+        <%= select_tag 'from', options_for_select(WelcomeController::CURRENCY, 'EUR'), class: 'custom-select custom-select-lg mb-6' %>&nbsp;&nbsp;&nbsp;&nbsp;
+        <%= number_field_tag 'number', nil, min: 1, placeholder: 'Enter amount', class: 'form-control' %>&nbsp;&nbsp;&nbsp;&nbsp;
+        <%= label_tag 'To', nil, class: 'alert-link' %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <%= select_tag 'to', options_for_select(WelcomeController::CURRENCY, 'USD'), class: 'custom-select custom-select-lg mb-6' %>&nbsp;&nbsp;&nbsp;&nbsp;
+        <div id="new_codes">
+          <% if @new_rate %>
+            <%= render partial: 'conversion' %>
+          <% end %>
+        </div>
+        <span class="p-5"></span>
+        <%= submit_tag 'Convert', type: 'submit', class: "btn btn-outline-success btn-lg btn-block my-sm" %>
+        <span class="p-5"></span>
+      </div>
+    <% end %>
+  </div>
+</div>

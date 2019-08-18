@@ -1,21 +1,74 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>CurrencyConverter</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currency Converter</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag "application", :media => "all" %>
+    <%= javascript_include_tag "application" %>
   </head>
-
   <body>
-    <% if notice %>
-      <p class="alert alert-success"><%= notice %></p>
-    <% end %>
-    <% if alert %>
-      <p class="alert alert-danger"><%= alert %></p>
-    <% end %>
-    <%= yield %>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container">
+        <%= link_to image_tag('cc.png', width: "80px", height: "80px"), root_path, class: "navbar-brand" %>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navbarsExample07" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <%= link_to "Currency Converter", root_path, class: "navbar-brand" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "Last Week Rates", welcome_historical_rates_path, class: "nav-link" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "Current Exchange", welcome_latest_rates_path, class: "nav-link" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "Users List", welcome_user_index_path, class: "nav-link" %>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <% if notice %>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+              <%= notice %>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          <% end %>
+          <% if alert %>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <%= alert %>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          <% end %>
+        </div>
+        <div class="col-lg-12">
+          <%= yield %>
+        </div>
+      </div>
+
+      <div class="col-lg-12">
+        <footer class="text-center">
+          <p>&copy; Gaurav Sharma <%= Date.today.year %></p>
+        </footer>
+      </div>
+    </div>
+
   </body>
 </html>

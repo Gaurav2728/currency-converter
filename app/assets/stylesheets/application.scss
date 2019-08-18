@@ -1,2 +1,28 @@
 // Custom bootstrap variables must be set or imported *before* bootstrap.
 @import "bootstrap";
+
+.p-6 {
+  padding: 6rem !important;
+}
+
+.p-10 {
+  padding: 18rem !important;
+}
+
+.my-sm {
+  max-width: 70%;
+}
+
+.my-sm-1 {
+  max-height: 600px;
+  overflow: hidden;
+}
+
+.my-custom-scrollbar {
+  position: relative;
+  height: 500px;
+  overflow: auto;
+}
+.table-wrapper-scroll-y {
+  display: block;
+}
