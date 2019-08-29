@@ -1,0 +1,16 @@
+language: ruby
+dist: trusty
+rvm:
+- 2.0.0
+addons:
+  postgresql: 9.6
+services:
+  - redis-server
+script:
+  - bundle install
+  - bundle exec rails db:migrate RAILS_ENV=test
+  - bundle exec rspec
+cache:
+  bundler: true
+branches:
+  only: [master]
